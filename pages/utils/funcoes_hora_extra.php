@@ -98,6 +98,41 @@ if ($_GET['acao'] == 'empresa') {
     }
 }
 
+if ($_GET['acao'] == 'listagemConsulta') {
+
+    $id = $_SESSION['usuarioId'];
+    $id_situacao = $_GET['id_situacao'];
+    if (isset($_SESSION['empresa_click'])) {
+        $id_empresa = $_SESSION['empresa_click'];
+    } else {
+        $id_empresa = $_GET['empresa'];
+    }
+
+    $sql = $pdo->prepare("SELECT *,  
+    DATE_FORMAT(ext_DataHoraExtra,'%d/%m/%Y') as data_extra_br,
+    DATE_FORMAT(ext_DataHoraExtra,'%d/%m/%Y') as data_emissao_br
+    FROM tab_horaextra
+    join tab_setores on tab_setores.set_idSetor = tab_horaextra.ext_IdSetor
+    join tab_situacao on tab_situacao.sit_idSituacao = tab_horaextra.ext_IdSituacao
+    join tab_empresas on tab_empresas.emp_idEmpresa = tab_horaextra.ext_IdEmpresa
+    WHERE ext_idLogin = :id and ext_idEmpresa = :id_empresa and tab_horaextra.ext_IdSituacao = :id_situacao order by data_emissao_br desc;");
+
+    $sql->bindValue(":id", $id, PDO::PARAM_INT);
+    $sql->bindValue(":id_empresa", $id_empresa, PDO::PARAM_INT);
+    $sql->bindValue(":id_situacao", $id_situacao, PDO::PARAM_INT);
+    $sql->execute();
+    $n = 0;
+    $retorno['recordsTotal'] = $sql->rowCount();
+    $retorno['recordsFiltered'] = $retorno['recordsTotal'];
+
+    $retorno['data'] = array();
+
+    while ($ln = $sql->fetchObject()) {
+        $retorno['data'][$n] = $ln;
+        $n++;
+    }
+}
+
 if ($_GET['acao'] == 'listagem') {
 
     $id = $_SESSION['usuarioId'];
