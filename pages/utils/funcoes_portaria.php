@@ -18,7 +18,7 @@ if ($_GET['acao'] == 'empresas') {
 	   emp_Descricao, 
 	   emp_ConexaoBase 
                  from tab_empresas
-                 where emp_idEmpresa in (select ext.ext_IdEmpresa from tab_horaextra ext where ext.ext_IdSituacao = 2);;";
+                 where emp_idEmpresa in (select ext.ext_IdEmpresa from tab_horaextra ext where ext.ext_IdSituacao = 2 and ext.ext_DataHoraExtra = current_date);";
     $sql = $pdo->prepare($sql_str);
     $sql->execute();
     $n = 0;

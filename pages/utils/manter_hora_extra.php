@@ -188,17 +188,46 @@ if ($_GET['acao'] == 'salvar') {
         $stmt = $pdo->prepare($string_sql);
         if ($stmt->execute()) {
             //success
+           // echo '<script>alert('."Cadastrado com sucesso."');</script>'
+            // $url_feed = "http://extra.grupois.mao/web-hora-extra/pages/utils/mobile/firebase/notification.php?empresa=".$partes_emp_nome[1]."&setor=".$_POST['descricao_setor'];
+
+                // URL para onde será enviada a requisição GET
+             $url_feed = "http://extra.grupois.mao/web-hora-extra/pages/utils/mobile/firebase/notification.php?empresa=NovaHoraExtra&setor=SetorN";
+
+
+            // $ch = curl_init();
+            // curl_setopt($ch, CURLOPT_URL, urlencode($url));
+            // curl_setopt($ch, CURLOPT_HEADER, 0);
+            // $result = curl_exec($ch);
+            // curl_close($ch);
+           
+                 
+                // Inicia a sessão cURL
+                $ch = curl_init();
+                 
+                // Informa a URL onde será enviada a requisição
+                curl_setopt($ch, CURLOPT_URL, urlencode($url_feed));
+                 
+                // Se true retorna o conteúdo em forma de string para uma variável
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                 
+                // Envia a requisição
+                $result = curl_exec($ch);
+                 
+                // Finaliza a sessão
+                curl_close($ch);
+                 
+                // Transforma a string XML em Objeto
+                $xml = simplexml_load_string($result);
+                
+
             $_SESSION[$errorBox] = "<div class='alert alert-success alert-dismissible' style='visibility: visible; width: 100%; text-align: center;'>
                                     <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                                        <strong>Cadastrado com sucesso.</strong></div>";
-            
-             $url = "http://dev.grupois.mao/horaextra/web-hora-extra/pages/utils/mobile/firebase/notification.php?empresa=".$partes_emp_nome[1]."&setor=".$_POST['descricao_setor'];
-       
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_exec($ch);
-            curl_close($ch);
+                                        <strong>".$xml."
+                                            
+                                        </strong></div>";
+
+
             
         } else {
             // error

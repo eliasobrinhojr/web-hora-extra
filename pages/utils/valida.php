@@ -43,7 +43,7 @@ if ((isset($_POST['login'])) && (isset($_POST['senha']))) {
 
         $_SESSION['acessos'] = $result;
 
-        if ($result['acs_IdTipoDeAcesso'] == 5) {
+        if ($result['acs_IdTipoDeAcesso'] == "3") {
             header("Location:../view/portaria.php");
         } else {
             header("Location:../view/index.php");

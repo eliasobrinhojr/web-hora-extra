@@ -237,8 +237,9 @@ function verificaUteisData(data) {
             console.log(data);
 
             if (data.qtd === 0) {
-                if (!alert("Não há registro de dias Úteis para o Mês Atual !!"))
-                    document.location = '../index.php';
+               // if (!alert("Não há registro de dias Úteis para o Mês Atual !!"))
+                 //   document.location = '../index.php';
+                 alert("Não há registro de dias Úteis para o Mês Atual !!")
             } else {
                 console.log(data);
             }

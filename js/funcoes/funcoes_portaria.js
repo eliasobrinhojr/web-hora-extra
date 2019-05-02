@@ -22,6 +22,14 @@ function carregaEmpresas() {
             $('select[name=sel_empresas]').html('');
             $('select[name=sel_empresas]').append('<option value="0"  selected>Selecione</option>');
 
+            if(dados.length > 0){
+                $("#sel_empresas").attr("style", "display:block");                
+                $("#divTable").attr("style", "display:block"); 
+                $("#divMsg").attr("style", "display: none;");               
+            } else {
+                $("#divMsg").attr("style", "display: block;");
+            }
+
 
             for (var i = 0; i < dados.length; i++) {
                 if (dados.length === 1) {

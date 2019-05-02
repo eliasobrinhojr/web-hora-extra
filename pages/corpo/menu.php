@@ -1,7 +1,8 @@
 <div class="menu">
     <ul>					
         <li><a href="../../view/index.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-        <li><a href="../manter/relatorio.php"><i class="fa fa-clipboard" aria-hidden="true"></i>Relatórios</a></li>
+        <li style="display: none;"><a href="../manter/relatorio.php"><i class="fa fa-clipboard" aria-hidden="true"></i>Relatórios</a></li>
+        <li><a href="../manter/consultaExtra.php"><i class="fa fa-clipboard" aria-hidden="true"></i>Consultar</a></li>
 
         <div class="accordion">
             <section class="accordion-item">
@@ -23,6 +24,7 @@
                         <li style="padding-left:10px;"><a href="../manter/setores.php"><i class="fa fa-sitemap" aria-hidden="true"></i>Setores</a></li>
                         <li style="padding-left:10px;"><a href="../manter/dias_uteis.php"><i class="fa fa-calendar" aria-hidden="true"></i>Dias Úteis</a></li>
                         <?php } ?>
+
                 </div>
             </section>
         </div>

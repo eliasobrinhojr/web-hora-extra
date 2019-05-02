@@ -13,7 +13,8 @@ $query = "select ext_idHoraExtra as id,
 		ext_HoraInicial as hora_incial,
 		ext_HoraFinal as hora_final,
 		tab_empresas.emp_Descricao as nome_empresa,
-		ext_CustoDaExtra as custo
+		ext_CustoDaExtra as custo,
+		ext_Motivo as motivo
 FROM tab_horaextra
 	join tab_setores on tab_setores.set_idSetor = tab_horaextra.ext_IdSetor
 	join tab_situacao on tab_situacao.sit_idSituacao = tab_horaextra.ext_IdSituacao

@@ -6,6 +6,8 @@
     include('../../utils/manter_hora_extra.php');
     $str_cod_empresa = 'cod_empresa';
     $_SESSION['empresa_click'] = isset($_POST['id_empresa']) ? $_POST['id_empresa'] : $_SESSION['empresa_click'];
+    $_SESSION['emp_ConexaoBase'] = $_POST['conexao_base'];
+
     $_SESSION[$str_cod_empresa] = isset($_POST[$str_cod_empresa]) ? $_POST[$str_cod_empresa] : $_SESSION[$str_cod_empresa];
     ?>
 
@@ -76,7 +78,7 @@ if (isset($_POST['descricao_setor'])) {
                             <td width="200"  style="padding-left: 5px;">
                                 <div tabindex="2">
                                     <label>Data da Extra:</label>
-                                    <input required="required" style="line-height: 20px;" type="date" id="data_extra" name="data_extra" onchange="validaDataSelecionada(this)" class="form-control" value="<?php
+                                    <input required="required" style="line-height: 20px;" type="date" id="data_extra" name="data_extra" onblur="validaDataSelecionada(this)" class="form-control" value="<?php
                                     if (isset($_POST['data_extra'])) {
                                         echo $_POST['data_extra'];
                                     }
@@ -262,11 +264,11 @@ if (isset($_POST['descricao_setor'])) {
                         </tr>
                         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                         <tr><td><div style="display:inline-block">
-                                    <div style="display: inherit;width: calc(100% - 400px);overflow: auto;">
+                                    <!-- <div style="display: inherit;width: calc(100% - 400px);overflow: auto;"> -->
                                         <span>
                                             <button id="btnCadastrar" name="btnCadastrar" tabindex="17" type="submit" disabled class="btn btn-primary">Cadastrar</button>
                                         </span>
-                                    </div>
+                                    <!-- </div> -->
                                     <div style="float: right; width: 400px;">
 <?php
 if (isset($_SESSION['errorBox'])) {
@@ -323,88 +325,88 @@ if (isset($_SESSION['errorBox'])) {
         <script type="text/javascript" charset="utf8" src="../../../includes/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
         <script>
 
-                                                    $(document).ready(function () {
-                                                        $('#table_historico').DataTable({
-                                                            "ajax": {
-                                                                "url": "../../utils/funcoes_hora_extra.php?acao=listagem",
-                                                                "type": "GET",
-                                                                "dataType": "json",
-                                                                "data": function (d) {
-                                                                    return JSON.stringify(d);
-                                                                }
-                                                            },
+            $(document).ready(function () {
+                $('#table_historico').DataTable({
+                    "ajax": {
+                        "url": "../../utils/funcoes_hora_extra.php?acao=listagem",
+                        "type": "GET",
+                        "dataType": "json",
+                        "data": function (d) {
+                            return JSON.stringify(d);
+                        }
+                    },
 
-                                                            'columnDefs': [{"className": "dt-center", "targets": "_all"}],
-                                                            "columns": [
-                                                                {
-                                                                    "className": 'details-control',
-                                                                    "data": null,
-                                                                    "defaultContent": ''
-                                                                },
-                                                                {"data": "ext_DrtFuncionario"},
-                                                                {"data": "ext_NomeDoColaborador"},
-                                                                {"data": "data_emissao_br"},
-                                                                {"data": "data_extra_br"},
-                                                                {"data": "set_Setor"},
-                                                                {"data": "ext_HoraInicial"},
-                                                                {"data": "ext_HoraFinal"},
-                                                                {
-                                                                    "data": null,
-                                                                    "width": "5%",
-                                                                    "responsivePriority": 2,
-                                                                    "class": "vert-align text-center",
-                                                                    "render": function (data, type, full, meta) {
-                                                                        if (data.ext_IdSituacao == 1 || data.ext_IdSituacao == 3) {
-                                                                            return "<button type='button' onClick='excluir(\"" + data.ext_idHoraExtra + "\",\"" + data.ext_NomeDoColaborador + "\")' class='btn btn-danger btn-sm' data-action='delete'><i class='fa fa-trash fa-lg' aria-hidden='true'></i></button>";
-                                                                        } else {
-                                                                            return "<button disabled type='button' class='btn btn-danger btn-sm' data-action='delete'><i class='fa fa-trash fa-lg' aria-hidden='true'></i></button>";
-                                                                        }
+                    'columnDefs': [{"className": "dt-center", "targets": "_all"}],
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        {"data": "ext_DrtFuncionario"},
+                        {"data": "ext_NomeDoColaborador"},
+                        {"data": "data_emissao_br"},
+                        {"data": "data_extra_br"},
+                        {"data": "set_Setor"},
+                        {"data": "ext_HoraInicial"},
+                        {"data": "ext_HoraFinal"},
+                        {
+                            "data": null,
+                            "width": "5%",
+                            "responsivePriority": 2,
+                            "class": "vert-align text-center",
+                            "render": function (data, type, full, meta) {
+                                if (data.ext_IdSituacao == 1 || data.ext_IdSituacao == 3) {
+                                    return "<button type='button' onClick='excluir(\"" + data.ext_idHoraExtra + "\",\"" + data.ext_NomeDoColaborador + "\")' class='btn btn-danger btn-sm' data-action='delete'><i class='fa fa-trash fa-lg' aria-hidden='true'></i></button>";
+                                } else {
+                                    return "<button disabled type='button' class='btn btn-danger btn-sm' data-action='delete'><i class='fa fa-trash fa-lg' aria-hidden='true'></i></button>";
+                                }
 
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "language": {
-                                                                "lengthMenu": "_MENU_ registros por página",
-                                                                "zeroRecords": "Nada encontrado",
-                                                                "info": "Mostrando página _PAGE_ de _PAGES_",
-                                                                "infoEmpty": "Nenhum registro disponível",
-                                                                "infoFiltered": "(filtrado de _MAX_ registros no total)",
-                                                                "search": "Filtrar:",
-                                                                "paginate": {
-                                                                    "first": "Primeiro",
-                                                                    "last": "Ultimo",
-                                                                    "next": "Próximo",
-                                                                    "previous": "Anterior"
-                                                                }
+                            }
+                        }
+                    ],
+                    "language": {
+                        "lengthMenu": "_MENU_ registros por página",
+                        "zeroRecords": "Nada encontrado",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "Nenhum registro disponível",
+                        "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                        "search": "Filtrar:",
+                        "paginate": {
+                            "first": "Primeiro",
+                            "last": "Ultimo",
+                            "next": "Próximo",
+                            "previous": "Anterior"
+                        }
 
-                                                            }
-                                                        });
+                    }
+                });
 
 
-                                                        $('#table_historico tbody').on('click', 'td.details-control', function () {
-                                                            var tr = $(this).closest('tr');
+                $('#table_historico tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
 
-                                                            var row = $('#table_historico').DataTable().row(tr);
+                    var row = $('#table_historico').DataTable().row(tr);
 
-                                                            if (row.child.isShown()) {
-                                                                row.child.hide();
-                                                                tr.removeClass('shown');
-                                                            } else {
-                                                                row.child(formatChild(row.data())).show();
-                                                                tr.addClass('shown');
-                                                            }
-                                                        });
+                    if (row.child.isShown()) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else {
+                        row.child(formatChild(row.data())).show();
+                        tr.addClass('shown');
+                    }
+                });
 
-                                                    });
+            });
 
-                                                    $(document).ready(function () {
-                                                        $(window).keydown(function (event) {
-                                                            if (event.keyCode === 13) {
-                                                                event.preventDefault();
-                                                                return false;
-                                                            }
-                                                        });
-                                                    });
+            $(document).ready(function () {
+                $(window).keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
 
 
         </script>

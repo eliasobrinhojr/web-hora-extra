@@ -128,33 +128,7 @@ if (!isset($_SESSION['usuarioNome'])) {
                 </table>
             </div>
 
-            <div id="divConsulta" style="padding: 20px;display: none;">
-
-                <form id="form-id" action="#" method="post">
-                    <b><p id="label_empresa"></p></b> <hr>
-                    <select id="sel_situacao" onchange="recarregaTable(this.value)" name="sel_situacao">
-                        <option value="1">Aguardando Aprovação</option>
-                        <option value="2">Aprovada</option>
-                        <option value="3">Rejeitada</option>
-                        <option value="4">Reprovada</option>
-                    </select><br> <br>
-                    <hr>
-                     <br>
-                    <div id="divTableConsulta" > 
-                        <table id="table_consulta"  class="display row-border stripe table table-striped table-bordered " style="width:100%">
-                            <thead>
-                                <tr><th></th>
-                                    <th>Colaborador</th>
-                                    <th>Setor</th>
-                                    <th>Emissão</th>
-                                    <th>Data</th>
-                                    <th>Início</th>
-                                    <th>Término</th>
-                                </tr>
-                            </thead>
-                        </table> </div>
-                </form>
-            </div>
+           
 
             <div  style="padding: 20px;" >
                 <form id="form-id" action="#" method="post">

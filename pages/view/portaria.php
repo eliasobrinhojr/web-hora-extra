@@ -123,8 +123,8 @@ if (!isset($_SESSION['usuarioNome'])) {
 
             <div  style="padding: 20px;" >
                 <form id="form-id" action="#" method="post">
-                    <select id="sel_empresas" name="sel_empresas"></select><br><br><hr>
-                    <div id="divTable" > 
+                    <select style="display: none;" id="sel_empresas" name="sel_empresas"></select><br><br><hr>
+                    <div id="divTable" style="display: none;" > 
                         <table id="table_historico" class="display nowrap table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
@@ -140,6 +140,10 @@ if (!isset($_SESSION['usuarioNome'])) {
                             <tbody>	</tbody>
                         </table> </div>
                 </form>
+            </div>
+
+            <div id="divMsg"  style="display: none;" >
+                <p style="padding: 20px;">Sem extras aprovadas para data de Hoje <?php echo date('m/d/Y');?></p>
             </div>
 
         </div>
